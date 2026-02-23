@@ -9,9 +9,9 @@ public interface IProductStore
 
 public class ProductStore : IProductStore
 {
-    private readonly List<Product> _products = new();
+    private readonly List<Product> _products = [];
 
-    // here there is a duplicate checking of null||whitespace and duplicate product code. 
+    private int _nextId = 1;
 
     public void Add(Product product)
     {
@@ -23,6 +23,7 @@ public class ProductStore : IProductStore
         if (Exists(product.ProductCode))
             throw new InvalidOperationException($"A product with code '{product.ProductCode}' already exists.");
 
+        product.ProductId = _nextId++;
         _products.Add(product);
     }
 
