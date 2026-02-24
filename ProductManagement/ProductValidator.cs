@@ -30,7 +30,7 @@ public class ProductValidator
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            error = $"{name} is required.";
+            error = $"Name is required.";
             return false;
         }
 

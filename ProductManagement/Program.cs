@@ -1,11 +1,12 @@
-﻿using System;
-using ProductManagement;
-var productUI = new ProductUI(new ProductStore());
+﻿using ProductManagement;
+
+var store = new ProductStore(new List<Product>());
+var productUI = new ProductUI(store);
 while (true)
 {
 
     ProductUI.DisplayMenu();
-    string choice = ProductUI.ReadOptional("Choose option: ").Trim();
+    string choice = Console.ReadLine()?.Trim() ?? "";
 
     switch (choice)
     {
