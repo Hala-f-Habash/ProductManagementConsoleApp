@@ -23,7 +23,7 @@ public class Product
 
     public override string ToString()
     {
-        return $"ID: {ProductId}, Code: {ProductCode}, Name: {Name}, " +
+        return $"{(ProductId > 0 ? $"ID: {ProductId}, " : "")}Code: {ProductCode}, Name: {Name}, " +
                $"Description: {Description}, Price: {Price:C}, Quantity: {Quantity}";
     }
 }

@@ -18,6 +18,8 @@ public class ProductUI
         if (!ValidateProduct(product))
         {
             Console.WriteLine("Product not added due to validation errors.\n");
+            Console.WriteLine("Product details:");
+            Console.WriteLine(product.ToString());
             return;
         }
         _store.Add(product);
