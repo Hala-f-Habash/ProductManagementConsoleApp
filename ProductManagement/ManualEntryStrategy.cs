@@ -18,7 +18,7 @@ public class ManualEntryStrategy : IProductInputStrategy
 
         if (!ValidateProduct(product))
         {
-            Console.WriteLine("Faild to add product.");
+            Console.WriteLine("Failed to add product.");
             return;
         }
         _store.Add(product);
