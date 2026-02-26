@@ -15,7 +15,13 @@ public class ProductValidator
     {
         error = string.Empty;
 
-        if (productCode != null && _store.Exists(productCode))
+        if (string.IsNullOrWhiteSpace(productCode))
+        {
+            error = $"Product Code is required.";
+            return false;
+        }
+
+        if (_store.Exists(productCode))
         {
             error = $"Product code '{productCode}' already exists.";
             return false;
