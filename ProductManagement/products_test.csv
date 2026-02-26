@@ -1,5 +1,5 @@
 ProductCode,Name,Description,Price,Quantity
-P001,Wireless Mouse,Ergonomic wireless mouse with USB receiver and long battery life,29.99,150
+P001,Wireless Mouse,,29.99,150
 P002,Mechanical Keyboard,Compact TKL mechanical keyboard with RGB backlight and blue switches,89.99,75
 P003,USB-C Hub,7-in-1 USB-C hub with HDMI 4K output and 100W power delivery,49.99,200
 P004,27-Inch Monitor,IPS panel monitor with 144Hz refresh rate and AMD FreeSync support,319.99,40
@@ -17,10 +17,13 @@ P015,Smart Plug,Wi-Fi smart plug compatible with Alexa and Google Home with ener
 ,Unnamed Product,Missing product code should be caught by validator,19.99,10
 P017,,Empty name should fail validation,15.00,5
 P018,Negative Price Product,This row has a negative price which must be rejected,-5.00,20
+,,,,
 P019,Zero Price Product,Price is zero which is also invalid,0,30
 P020,Negative Quantity,Valid product but quantity is negative so it must fail,25.00,-10
 P021,Invalid Price Format,Price column contains text instead of a number,not_a_price,10
 P022,Invalid Quantity Format,Quantity column contains text instead of a number,19.99,ten
 P023,Too Few Columns,Only three columns here,19.99
+,,,,
+
 P024,Comma in Description,"Gaming headset, surround sound, with detachable microphone",74.99,85
 P025,Free Item,Product with zero quantity is valid — out of stock scenario,12.99,0
