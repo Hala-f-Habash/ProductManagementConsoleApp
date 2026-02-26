@@ -2,9 +2,9 @@ namespace ProductManagement;
 
 public class Product
 {
-    private static int _idCounter = 1;
+    // private static int _idCounter = 1;
 
-    public int ProductId { get; private set; }
+    public int ProductId { get; internal set; }
     public string ProductCode { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
@@ -13,7 +13,7 @@ public class Product
 
     public Product(string productCode, string name, string description, decimal price, int quantity)
     {
-        ProductId = _idCounter++;
+        // ProductId = _idCounter++;
         ProductCode = productCode;
         Name = name;
         Description = description;

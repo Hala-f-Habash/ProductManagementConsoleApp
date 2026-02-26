@@ -3,30 +3,34 @@ namespace ProductManagement;
 public interface IProductStore
 {
     void Add(Product product);
-    IReadOnlyList<Product> GetAll();
+    List<Product> GetAll();
     bool Exists(string productCode);
 }
 
 public class ProductStore : IProductStore
 {
-    private readonly List<Product> _products = new();
+    private readonly List<Product> _products;
 
-    // here there is a duplicate checking of null||whitespace and duplicate product code. 
+    private int _nextId = 1;
+
+    public ProductStore(List<Product> products)
+    {
+        _products = products ?? new List<Product>();
+        // Initialize nextId based on existing products
+        if (_products.Count > 0)
+        {
+            _nextId = _products.Max(p => p.ProductId) + 1;
+        }
+    }
 
     public void Add(Product product)
     {
         ArgumentNullException.ThrowIfNull(product);
-
-        if (string.IsNullOrWhiteSpace(product.ProductCode))
-            throw new ArgumentException("Product code is required.", nameof(product));
-
-        if (Exists(product.ProductCode))
-            throw new InvalidOperationException($"A product with code '{product.ProductCode}' already exists.");
-
+        product.ProductId = _nextId++;
         _products.Add(product);
     }
 
-    public IReadOnlyList<Product> GetAll() => _products.AsReadOnly();
+    public List<Product> GetAll() => _products;
 
     public bool Exists(string productCode)
     {
