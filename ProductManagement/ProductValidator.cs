@@ -11,7 +11,7 @@ public class ProductValidator
 
     // --- Individual validation methods ---
 
-    public bool ValidateProductCode(string? productCode, out string error)
+    private bool ValidateProductCode(string? productCode, out string error)
     {
         error = string.Empty;
 
@@ -30,7 +30,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateName(string? name, out string error)
+    private bool ValidateName(string? name, out string error)
     {
         error = string.Empty;
 
@@ -43,7 +43,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidatePrice(decimal price, out string error)
+    private bool ValidatePrice(decimal price, out string error)
     {
         error = string.Empty;
 
@@ -56,7 +56,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateQuantity(int quantity, out string error)
+    private bool ValidateQuantity(int quantity, out string error)
     {
         error = string.Empty;
 
@@ -69,7 +69,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateDescription(string? description, out string error)
+    private bool ValidateDescription(string? description, out string error)
     {
         error = string.Empty;
 
@@ -84,9 +84,9 @@ public class ProductValidator
 
     // --- Aggregate method that runs all validations ---
 
-    public List<string> ValidateAll(Product product)
+    public bool TryValidateAll(Product product, out List<string> errors)
     {
-        var errors = new List<string>();
+        errors = new List<string>();
 
         if (!ValidateProductCode(product.ProductCode, out var codeError))
             errors.Add(codeError);
@@ -103,6 +103,6 @@ public class ProductValidator
         if (!ValidateDescription(product.Description, out var descError))
             errors.Add(descError);
 
-        return errors;
+        return errors.Count == 0;
     }
 }

@@ -111,8 +111,8 @@ public class CsvImportStrategy : IProductInputStrategy
         }
 
         // Handle validation errors
-        var errors = _validator.ValidateAll(parseResult.Product!);
-        if (errors.Count > 0)
+        var isValid = _validator.TryValidateAll(parseResult.Product!, out var errors);
+        if (!isValid)
         {
             string errorMsg = $"  Row {displayRow} skipped — validation failed:\n";
             foreach (var error in errors)

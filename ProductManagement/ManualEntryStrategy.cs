@@ -39,9 +39,9 @@ public class ManualEntryStrategy : IProductInputStrategy
 
     private bool ValidateProduct(Product product)
     {
-        var errors = _validator.ValidateAll(product);
+        var isValid = _validator.TryValidateAll(product, out var errors);
 
-        if (errors.Count > 0)
+        if (!isValid)
         {
             Console.WriteLine("Product could not be added. Please fix the following:");
             foreach (var error in errors)

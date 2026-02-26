@@ -25,7 +25,6 @@ public class ProductStore : IProductStore
 
     public void Add(Product product)
     {
-        ArgumentNullException.ThrowIfNull(product);
         product.ProductId = _nextId++;
         _products.Add(product);
     }
