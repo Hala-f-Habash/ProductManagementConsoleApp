@@ -1,11 +1,16 @@
-namespace ProductManagement;
+namespace ProductManagement.Readers;
 
-public class ManualEntryStrategy : IProductInputStrategy
+using ProductManagement.Models;
+using ProductManagement.Repositories.Interfaces;
+using ProductManagement.Validation;
+using ProductManagement.Readers.Interfaces;
+
+public class ConsoleProductReader : IProductReader
 {
-    private readonly IProductStore _store;
+    private readonly IProductRepository _store;
     private readonly ProductValidator _validator;
 
-    public ManualEntryStrategy(IProductStore store)
+    public ConsoleProductReader(IProductRepository store)
     {
         _store = store;
         _validator = new ProductValidator(store);

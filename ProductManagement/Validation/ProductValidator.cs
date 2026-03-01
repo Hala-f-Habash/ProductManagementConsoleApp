@@ -1,17 +1,21 @@
-namespace ProductManagement;
+using ProductManagement.Models;
+using ProductManagement.Repositories.Interfaces;
+using ProductManagement.Validation.Interfaces;
 
-public class ProductValidator
+namespace ProductManagement.Validation;
+
+public class ProductValidator : IProductValidator
 {
-    private readonly IProductStore _store;
+    private IProductRepository _store;
 
-    public ProductValidator(IProductStore store)
+    public ProductValidator(IProductRepository store)
     {
         _store = store;
     }
 
     // --- Individual validation methods ---
 
-    private bool ValidateProductCode(string? productCode, out string error)
+    public bool ValidateProductCode(string? productCode, out string error)
     {
         error = string.Empty;
 
@@ -30,7 +34,7 @@ public class ProductValidator
         return true;
     }
 
-    private bool ValidateName(string? name, out string error)
+    public bool ValidateName(string? name, out string error)
     {
         error = string.Empty;
 
@@ -43,7 +47,7 @@ public class ProductValidator
         return true;
     }
 
-    private bool ValidatePrice(decimal price, out string error)
+    public bool ValidatePrice(decimal price, out string error)
     {
         error = string.Empty;
 
@@ -56,7 +60,7 @@ public class ProductValidator
         return true;
     }
 
-    private bool ValidateQuantity(int quantity, out string error)
+    public bool ValidateQuantity(int quantity, out string error)
     {
         error = string.Empty;
 
@@ -69,7 +73,7 @@ public class ProductValidator
         return true;
     }
 
-    private bool ValidateDescription(string? description, out string error)
+    public bool ValidateDescription(string? description, out string error)
     {
         error = string.Empty;
 

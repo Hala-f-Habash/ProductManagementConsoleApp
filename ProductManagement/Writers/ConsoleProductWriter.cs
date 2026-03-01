@@ -1,10 +1,12 @@
-namespace ProductManagement;
+using ProductManagement.Repositories.Interfaces;
 
-public class ProductUI
+namespace ProductManagement.Writers;
+
+public class ConsoleProductWriter
 {
-    private readonly IProductStore _store;
+    private readonly IProductRepository _store;
 
-    public ProductUI(IProductStore store)
+    public ConsoleProductWriter(IProductRepository store)
     {
         _store = store;
     }
@@ -59,13 +61,4 @@ public class ProductUI
         }
     }
 
-    public static void DisplayMenu()
-    {
-        Console.WriteLine("--------------------");
-        Console.WriteLine("Welcome to the Product Management System!");
-        Console.WriteLine("1. Add Product (Manual)");
-        Console.WriteLine("2. Add Product (CSV Import)");
-        Console.WriteLine("3. Display Products");
-        Console.WriteLine("4. Exit");
-    }
 }

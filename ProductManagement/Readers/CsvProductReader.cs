@@ -1,4 +1,9 @@
-namespace ProductManagement;
+using ProductManagement.Models;
+using ProductManagement.Repositories.Interfaces;
+using ProductManagement.Validation;
+using ProductManagement.Readers.Interfaces;
+
+namespace ProductManagement.Readers;
 
 /// summary
 /// Imports products from a CSV file.
@@ -12,12 +17,12 @@ namespace ProductManagement;
 ///   - Invalid rows are reported with the row number and reason, but do NOT stop the import.
 ///   - The Description column is optional and may be empty.
 /// 
-public class CsvImportStrategy : IProductInputStrategy
+public class CsvProductReader : IProductReader
 {
-    private readonly IProductStore _store;
+    private readonly IProductRepository _store;
     private readonly ProductValidator _validator;
 
-    public CsvImportStrategy(IProductStore store)
+    public CsvProductReader(IProductRepository store)
     {
         _store = store;
         _validator = new ProductValidator(store);
