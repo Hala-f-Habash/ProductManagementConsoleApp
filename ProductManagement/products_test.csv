@@ -1,0 +1,29 @@
+ProductCode,Name,Description,Price,Quantity
+P001,Wireless Mouse,,29.99,150
+P002,Mechanical Keyboard,Compact TKL mechanical keyboard with RGB backlight and blue switches,89.99,75
+P003,USB-C Hub,7-in-1 USB-C hub with HDMI 4K output and 100W power delivery,49.99,200
+P004,27-Inch Monitor,IPS panel monitor with 144Hz refresh rate and AMD FreeSync support,319.99,40
+P005,Laptop Stand,Adjustable aluminum laptop stand compatible with 10 to 17 inch laptops,34.99,300
+P006,Webcam HD,1080p webcam with built-in noise-cancelling microphone and auto light correction,59.99,90
+P007,Desk Lamp,LED desk lamp with 5 brightness levels and USB charging port,24.99,180
+P008,Headphones,Over-ear noise cancelling headphones with 30-hour battery life,129.99,60
+P009,SSD 1TB,Portable solid state drive with USB 3.2 and read speed up to 1050MB/s,109.99,120
+P010,Gaming Chair,Ergonomic gaming chair with lumbar support and adjustable armrests,249.99,25
+P011,Mousepad XL,Extended mousepad 900x400mm with non-slip rubber base,19.99,500
+P012,Cable Management Kit,Set of 50 reusable velcro cable ties with a storage pouch,9.99,1000
+P013,Ethernet Cable 5m,Cat6 flat ethernet cable with gold-plated RJ45 connectors,7.99,400
+P014,Screen Cleaner Kit,Microfiber cloth and 100ml spray solution for screens and lenses,6.49,750
+P015,Smart Plug,Wi-Fi smart plug compatible with Alexa and Google Home with energy monitoring,14.99,350
+,Unnamed Product,Missing product code should be caught by validator,19.99,10
+P017,,Empty name should fail validation,15.00,5
+P018,Negative Price Product,This row has a negative price which must be rejected,-5.00,20
+,,,,
+P019,Zero Price Product,Price is zero which is also invalid,0,30
+P020,Negative Quantity,Valid product but quantity is negative so it must fail,25.00,-10
+P021,Invalid Price Format,Price column contains text instead of a number,not_a_price,10
+P022,Invalid Quantity Format,Quantity column contains text instead of a number,19.99,ten
+P023,Too Few Columns,Only three columns here,19.99
+,,,,
+
+P024,Comma in Description,"Gaming headset, surround sound, with detachable microphone",74.99,85
+P025,Free Item,Product with zero quantity is valid — out of stock scenario,12.99,0

@@ -2,8 +2,6 @@ namespace ProductManagement;
 
 public class Product
 {
-    // private static int _idCounter = 1;
-
     public int ProductId { get; internal set; }
     public string ProductCode { get; set; }
     public string Name { get; set; }
@@ -13,7 +11,6 @@ public class Product
 
     public Product(string productCode, string name, string description, decimal price, int quantity)
     {
-        // ProductId = _idCounter++;
         ProductCode = productCode;
         Name = name;
         Description = description;
@@ -23,7 +20,7 @@ public class Product
 
     public override string ToString()
     {
-        return $"ID: {ProductId}, Code: {ProductCode}, Name: {Name}, " +
+        return $"{(ProductId > 0 ? $"ID: {ProductId}, " : "")}Code: {ProductCode}, Name: {Name}, " +
                $"Description: {Description}, Price: {Price:C}, Quantity: {Quantity}";
     }
 }
