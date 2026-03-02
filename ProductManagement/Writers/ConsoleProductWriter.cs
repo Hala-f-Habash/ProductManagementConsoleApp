@@ -1,8 +1,9 @@
 using ProductManagement.Repositories.Interfaces;
+using ProductManagement.Writers.Interfaces;
 
 namespace ProductManagement.Writers;
 
-public class ConsoleProductWriter
+public class ConsoleProductWriter : IProductWriter
 {
     private readonly IProductRepository _store;
 
@@ -11,7 +12,7 @@ public class ConsoleProductWriter
         _store = store;
     }
 
-    public void DisplayProducts()
+    public void WriteProducts()
     {
         var products = _store.GetAll();
         if (products.Count == 0)

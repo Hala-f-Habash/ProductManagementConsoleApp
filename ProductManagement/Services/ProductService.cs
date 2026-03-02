@@ -10,18 +10,11 @@ namespace ProductManagement.Services;
 public class ProductService : IProductService
 {
     private IProductRepository _repository;
-    private IProductWriter _writer;
-    private IProductReader _reader;
 
     public ProductService(
-        IProductRepository repository,
-        IProductWriter writer,
-        IProductReader? reader = null)
+        IProductRepository repository)
     {
         _repository = repository;
-        _writer = writer;
-        _reader = reader ?? ProductReaderFactory.CreateReader("console", repository); // check best practices
-
     }
 
 
@@ -32,12 +25,15 @@ public class ProductService : IProductService
         Console.WriteLine("Welcome to the Product Management System!");
         Console.WriteLine("1. Add Product (Manual)");
         Console.WriteLine("2. Add Product (CSV Import)");
-        Console.WriteLine("3. Display Products");
-        Console.WriteLine("4. Exit");
+        Console.WriteLine("3. Display Products on Console");
+        Console.WriteLine("4. wrtie products to JSON file (comming soon)");
+        Console.WriteLine("5. Exit");
     }
 
     public void Run()
     {
+        IProductWriter? writer;
+        IProductReader? reader;
         while (true)
         {
             DisplayMenu();
@@ -46,17 +42,22 @@ public class ProductService : IProductService
             switch (choice)
             {
                 case "1":
-                    _reader = ProductReaderFactory.CreateReader("console", _repository);
-                    _reader.ImportProducts();
+                    reader = ProductReaderFactory.CreateReader("console", _repository);
+                    reader.ImportProducts();
                     break;
                 case "2":
-                    _reader = ProductReaderFactory.CreateReader("csv", _repository);
-                    _reader.ImportProducts();
+                    reader = ProductReaderFactory.CreateReader("csv", _repository);
+                    reader.ImportProducts();
                     break;
                 case "3":
-                    _writer.DisplayProducts(_repository.GetAll());
+                    writer = ProductWriterFactory.CreateWriter("console", _repository);
+                    writer.WriteProducts();
                     break;
                 case "4":
+                    writer = ProductWriterFactory.CreateWriter("json", _repository);
+                    writer.WriteProducts();
+                    break;
+                case "5":
                     return;
             }
         }

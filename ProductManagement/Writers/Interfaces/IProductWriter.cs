@@ -4,6 +4,6 @@ namespace ProductManagement.Writers.Interfaces;
 
 public interface IProductWriter
 {
-    void DisplayProducts(List<Product> products);
+    void WriteProducts();
 
 }
