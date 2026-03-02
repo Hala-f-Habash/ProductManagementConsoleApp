@@ -20,7 +20,8 @@ class Program
     {
         IProductRepository repository = new ProductRepository(new List<Product>());
         IProductValidator validator = new ProductValidator(repository);
-        IProductService service = new ProductService(repository, validator);
+        IInputValidator consoleInputValidator = new ConsoleInputValidator();
+        IProductService service = new ProductService(repository, validator, consoleInputValidator);
         service.Run();
     }
 }

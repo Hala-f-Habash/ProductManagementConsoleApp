@@ -11,12 +11,13 @@ public class ProductService : IProductService
 {
     private IProductRepository _repository;
     private IProductValidator _validator;
-
+    private IInputValidator _inputValidator;
     public ProductService(
-        IProductRepository repository, IProductValidator validator)
+        IProductRepository repository, IProductValidator validator, IInputValidator inputValidator)
     {
         _repository = repository;
         _validator = validator;
+        _inputValidator = inputValidator;
     }
 
 
@@ -46,7 +47,7 @@ public class ProductService : IProductService
             switch (choice)
             {
                 case "1":
-                    reader = ProductReaderFactory.CreateReader("console", _repository, _validator);
+                    reader = ProductReaderFactory.CreateReader("console", _repository, _validator, _inputValidator);
                     reader.ImportProducts();
                     break;
                 case "2":
