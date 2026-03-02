@@ -9,4 +9,5 @@ public interface IProductValidator
     abstract bool ValidateQuantity(int quantity, out string error);
     abstract bool ValidateDescription(string? description, out string error);
     public abstract bool TryValidateAll(Product product, out List<string> errors);
+    public abstract bool TryValidateAllAndPrintErrors(Product product, string leadingMsg);
 }

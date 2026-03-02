@@ -63,7 +63,7 @@ public class CsvProductReader : IProductReader
                     // Skip silently, don't count as failed
                     break;
                 case RowProcessStatus.Error:
-                    Console.Write(result.ErrorMessage);
+                    // Console.Write(result.ErrorMessage);
                     failed++;
                     break;
             }
@@ -111,24 +111,24 @@ public class CsvProductReader : IProductReader
         // Handle parsing errors
         if (parseResult.HasErrors)
         {
-            string errorMsg = $"  Row {displayRow}: {string.Join(" ", parseResult.Errors!)}\n";
-            return new RowProcessResult(RowProcessStatus.Error, ErrorMessage: errorMsg);
+            string errorMsg = $"  Row {displayRow} skipped - wrong type:\n  - {string.Join("\n  - ", parseResult.Errors!)}\n";
+            Console.Write(errorMsg);
+            Console.WriteLine("-----------------------------------");
+            return new RowProcessResult(RowProcessStatus.Error);
         }
 
         // Handle validation errors
-        var isValid = _validator.TryValidateAll(parseResult.Product!, out var errors);
+        string Msg = $"  Row {displayRow} skipped — validation failed:";
+        var isValid = _validator.TryValidateAllAndPrintErrors(parseResult.Product!, Msg);
         if (!isValid)
         {
-            string errorMsg = $"  Row {displayRow} skipped — validation failed:\n";
-            foreach (var error in errors)
-                errorMsg += $"    - {error}\n";
-            return new RowProcessResult(RowProcessStatus.Error, ErrorMessage: errorMsg);
+            return new RowProcessResult(RowProcessStatus.Error);
         }
         // Success
         return new RowProcessResult(RowProcessStatus.Success, Product: parseResult.Product);
     }
 
-    private static ParseResult ParseRow(string line)
+    private ParseResult ParseRow(string line)
     {
         string[] parts = line.Split(',', 5);
 
@@ -141,19 +141,26 @@ public class CsvProductReader : IProductReader
         string rawPrice = parts[3].Trim();
         string rawQty = parts[4].Trim();
 
+        bool SuccessfullyParsed = TryParsePriceAndQuantity(rawPrice, rawQty, out decimal price, out int quantity, out string[]? parseErrors);
+
+        if (!SuccessfullyParsed)
+            return new ParseResult(null, parseErrors);
+
+        return new ParseResult(new Product(code, name, description, price, quantity), null);
+    }
+    private bool TryParsePriceAndQuantity(string rawPrice, string rawQty, out decimal price, out int quantity, out string[]? errorArray)
+    {
         var errors = new List<string>();
-        bool isValidPrice = decimal.TryParse(rawPrice, out decimal price);
+        bool isValidPrice = decimal.TryParse(rawPrice, out price);
         if (!isValidPrice)
             errors.Add($"'{rawPrice}' is not a valid price.");
 
-        bool isValidQuantity = int.TryParse(rawQty, out int quantity);
+        bool isValidQuantity = int.TryParse(rawQty, out quantity);
         if (!isValidQuantity)
             errors.Add($"'{rawQty}' is not a valid quantity.");
 
-        if (errors.Count > 0)
-            return new ParseResult(null, errors.ToArray());
-
-        return new ParseResult(new Product(code, name, description, price, quantity), null);
+        errorArray = errors.Count > 0 ? errors.ToArray() : null;
+        return errors.Count == 0;
     }
 
     private bool IsLineWithOnlyCommas(string line) =>
@@ -171,7 +178,7 @@ public class CsvProductReader : IProductReader
         public bool HasErrors => Errors != null && Errors.Length > 0;
     }
 
-    private record RowProcessResult(RowProcessStatus Status, Product? Product = null, string? ErrorMessage = null);
+    private record RowProcessResult(RowProcessStatus Status, Product? Product = null);
 
     private enum RowProcessStatus { Success, BlankLine, Error }
 }

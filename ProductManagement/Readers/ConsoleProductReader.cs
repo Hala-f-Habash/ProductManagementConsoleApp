@@ -21,9 +21,9 @@ public class ConsoleProductReader : IProductReader
 
         var product = ReadProduct();
 
-        if (!ValidateProduct(product))
+        bool isValid = _validator.TryValidateAllAndPrintErrors(product, "Product could not be added. Please fix the following errors:");
+        if (!isValid)
         {
-            Console.WriteLine("Failed to add product.");
             return;
         }
         _repository.Add(product);
@@ -42,17 +42,4 @@ public class ConsoleProductReader : IProductReader
         return product;
     }
 
-    private bool ValidateProduct(Product product)
-    {
-        var isValid = _validator.TryValidateAll(product, out var errors);
-
-        if (!isValid)
-        {
-            Console.WriteLine("Product could not be added. Please fix the following:");
-            foreach (var error in errors)
-                Console.WriteLine($"  - {error}");
-            return false;
-        }
-        return true;
-    }
 }

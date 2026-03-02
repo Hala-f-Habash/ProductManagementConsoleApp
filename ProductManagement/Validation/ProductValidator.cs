@@ -109,4 +109,19 @@ public class ProductValidator : IProductValidator
 
         return errors.Count == 0;
     }
+
+    public bool TryValidateAllAndPrintErrors(Product product, string leadingMsg)
+    {
+        bool isValid = TryValidateAll(product, out var errors);
+
+        if (!isValid)
+        {
+            Console.WriteLine(leadingMsg);
+            foreach (var error in errors!)
+                Console.WriteLine($"  - {error}");
+            Console.WriteLine("-----------------------------------");
+        }
+        return isValid;
+    }
+
 }
