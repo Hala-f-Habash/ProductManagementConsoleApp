@@ -1,19 +1,16 @@
-namespace ProductManagement;
+using ProductManagement.Models;
+using ProductManagement.Repositories.Interfaces;
 
-public interface IProductStore
-{
-    void Add(Product product);
-    List<Product> GetAll();
-    bool Exists(string productCode);
-}
+namespace ProductManagement.Repositories;
 
-public class ProductStore : IProductStore
+
+public class ProductRepository : IProductRepository
 {
     private readonly List<Product> _products;
 
     private int _nextId = 1;
 
-    public ProductStore(List<Product> products)
+    public ProductRepository(List<Product> products)
     {
         _products = products ?? new List<Product>();
         // Initialize nextId based on existing products
@@ -25,7 +22,6 @@ public class ProductStore : IProductStore
 
     public void Add(Product product)
     {
-        ArgumentNullException.ThrowIfNull(product);
         product.ProductId = _nextId++;
         _products.Add(product);
     }

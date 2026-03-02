@@ -1,0 +1,120 @@
+[
+  {
+    "id": 1,
+    "code": "P001",
+    "name": "Wireless Mouse",
+    "price": 29.99,
+    "quantity": 150
+  },
+  {
+    "id": 2,
+    "code": "P002",
+    "name": "Mechanical Keyboard",
+    "price": 89.99,
+    "quantity": 75
+  },
+  {
+    "id": 3,
+    "code": "P003",
+    "name": "USB-C Hub",
+    "price": 49.99,
+    "quantity": 200
+  },
+  {
+    "id": 4,
+    "code": "P004",
+    "name": "27-Inch Monitor",
+    "price": 319.99,
+    "quantity": 40
+  },
+  {
+    "id": 5,
+    "code": "P005",
+    "name": "Laptop Stand",
+    "price": 34.99,
+    "quantity": 300
+  },
+  {
+    "id": 6,
+    "code": "P006",
+    "name": "Webcam HD",
+    "price": 59.99,
+    "quantity": 90
+  },
+  {
+    "id": 7,
+    "code": "P007",
+    "name": "Desk Lamp",
+    "price": 24.99,
+    "quantity": 180
+  },
+  {
+    "id": 8,
+    "code": "P008",
+    "name": "Headphones",
+    "price": 129.99,
+    "quantity": 60
+  },
+  {
+    "id": 9,
+    "code": "P009",
+    "name": "SSD 1TB",
+    "price": 109.99,
+    "quantity": 120
+  },
+  {
+    "id": 10,
+    "code": "P010",
+    "name": "Gaming Chair",
+    "price": 249.99,
+    "quantity": 25
+  },
+  {
+    "id": 11,
+    "code": "P011",
+    "name": "Mousepad XL",
+    "price": 19.99,
+    "quantity": 500
+  },
+  {
+    "id": 12,
+    "code": "P012",
+    "name": "Cable Management Kit",
+    "price": 9.99,
+    "quantity": 1000
+  },
+  {
+    "id": 13,
+    "code": "P013",
+    "name": "Ethernet Cable 5m",
+    "price": 7.99,
+    "quantity": 400
+  },
+  {
+    "id": 14,
+    "code": "P014",
+    "name": "Screen Cleaner Kit",
+    "price": 6.49,
+    "quantity": 750
+  },
+  {
+    "id": 15,
+    "code": "P015",
+    "name": "Smart Plug",
+    "price": 14.99,
+    "quantity": 350
+  },
+  {
+    "id": 16,
+    "code": "P025",
+    "name": "Free Item",
+    "price": 12.99
+  },
+  {
+    "id": 17,
+    "code": "input#",
+    "name": "in1",
+    "price": 12,
+    "quantity": 3
+  }
+]
