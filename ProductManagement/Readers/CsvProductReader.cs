@@ -1,6 +1,6 @@
 using ProductManagement.Models;
 using ProductManagement.Repositories.Interfaces;
-using ProductManagement.Validation;
+using ProductManagement.Validation.Interfaces;
 using ProductManagement.Readers.Interfaces;
 
 namespace ProductManagement.Readers;
@@ -19,13 +19,13 @@ namespace ProductManagement.Readers;
 /// 
 public class CsvProductReader : IProductReader
 {
-    private readonly IProductRepository _store;
-    private readonly ProductValidator _validator;
+    private readonly IProductRepository _repository;
+    private readonly IProductValidator _validator;
 
-    public CsvProductReader(IProductRepository store)
+    public CsvProductReader(IProductRepository repository, IProductValidator validator)
     {
-        _store = store;
-        _validator = new ProductValidator(store);
+        _repository = repository;
+        _validator = validator;
     }
 
     public void ImportProducts()
@@ -56,7 +56,7 @@ public class CsvProductReader : IProductReader
             switch (result.Status)
             {
                 case RowProcessStatus.Success:
-                    _store.Add(result.Product!);
+                    _repository.Add(result.Product!);
                     imported++;
                     break;
                 case RowProcessStatus.BlankLine:

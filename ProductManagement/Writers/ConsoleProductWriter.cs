@@ -5,16 +5,16 @@ namespace ProductManagement.Writers;
 
 public class ConsoleProductWriter : IProductWriter
 {
-    private readonly IProductRepository _store;
+    private readonly IProductRepository _repository;
 
-    public ConsoleProductWriter(IProductRepository store)
+    public ConsoleProductWriter(IProductRepository repository)
     {
-        _store = store;
+        _repository = repository;
     }
 
     public void WriteProducts()
     {
-        var products = _store.GetAll();
+        var products = _repository.GetAll();
         if (products.Count == 0)
         {
             Console.WriteLine("No products available.");

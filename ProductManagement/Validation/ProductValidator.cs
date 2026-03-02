@@ -6,11 +6,11 @@ namespace ProductManagement.Validation;
 
 public class ProductValidator : IProductValidator
 {
-    private IProductRepository _store;
+    private IProductRepository _repository;
 
-    public ProductValidator(IProductRepository store)
+    public ProductValidator(IProductRepository repository)
     {
-        _store = store;
+        _repository = repository;
     }
 
     // --- Individual validation methods ---
@@ -25,7 +25,7 @@ public class ProductValidator : IProductValidator
             return false;
         }
 
-        if (_store.Exists(productCode))
+        if (_repository.Exists(productCode))
         {
             error = $"Product code '{productCode}' already exists.";
             return false;

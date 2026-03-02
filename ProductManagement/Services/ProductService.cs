@@ -10,11 +10,13 @@ namespace ProductManagement.Services;
 public class ProductService : IProductService
 {
     private IProductRepository _repository;
+    private IProductValidator _validator;
 
     public ProductService(
-        IProductRepository repository)
+        IProductRepository repository, IProductValidator validator)
     {
         _repository = repository;
+        _validator = validator;
     }
 
 
@@ -42,11 +44,11 @@ public class ProductService : IProductService
             switch (choice)
             {
                 case "1":
-                    reader = ProductReaderFactory.CreateReader("console", _repository);
+                    reader = ProductReaderFactory.CreateReader("console", _repository, _validator);
                     reader.ImportProducts();
                     break;
                 case "2":
-                    reader = ProductReaderFactory.CreateReader("csv", _repository);
+                    reader = ProductReaderFactory.CreateReader("csv", _repository, _validator);
                     reader.ImportProducts();
                     break;
                 case "3":

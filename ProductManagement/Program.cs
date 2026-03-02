@@ -19,7 +19,8 @@ class Program
     static void Main(string[] args)
     {
         IProductRepository repository = new ProductRepository(new List<Product>());
-        IProductService service = new ProductService(repository);
+        IProductValidator validator = new ProductValidator(repository);
+        IProductService service = new ProductService(repository, validator);
         service.Run();
     }
 }

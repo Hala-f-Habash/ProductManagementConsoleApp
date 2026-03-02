@@ -2,18 +2,18 @@ namespace ProductManagement.Readers;
 
 using ProductManagement.Models;
 using ProductManagement.Repositories.Interfaces;
-using ProductManagement.Validation;
+using ProductManagement.Validation.Interfaces;
 using ProductManagement.Readers.Interfaces;
 
 public class ConsoleProductReader : IProductReader
 {
-    private readonly IProductRepository _store;
-    private readonly ProductValidator _validator;
+    private readonly IProductRepository _repository;
+    private readonly IProductValidator _validator;
 
-    public ConsoleProductReader(IProductRepository store)
+    public ConsoleProductReader(IProductRepository repository, IProductValidator validator)
     {
-        _store = store;
-        _validator = new ProductValidator(store);
+        _repository = repository;
+        _validator = validator;
     }
 
     public void ImportProducts()
@@ -26,7 +26,7 @@ public class ConsoleProductReader : IProductReader
             Console.WriteLine("Failed to add product.");
             return;
         }
-        _store.Add(product);
+        _repository.Add(product);
         Console.WriteLine("Product added successfully.");
     }
 
