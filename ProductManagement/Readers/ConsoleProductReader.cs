@@ -9,11 +9,13 @@ public class ConsoleProductReader : IProductReader
 {
     private readonly IProductRepository _repository;
     private readonly IProductValidator _validator;
+    private readonly IInputValidator _inputValidator;
 
-    public ConsoleProductReader(IProductRepository repository, IProductValidator validator)
+    public ConsoleProductReader(IProductRepository repository, IProductValidator validator, IInputValidator inputValidator)
     {
         _repository = repository;
         _validator = validator;
+        _inputValidator = inputValidator;
     }
 
     public void ImportProducts()
@@ -32,11 +34,11 @@ public class ConsoleProductReader : IProductReader
 
     private Product ReadProduct()
     {
-        string code = ConsoleHelpers.ReadRequired("Product Code (required): ");
-        string name = ConsoleHelpers.ReadRequired("Name (required): ");
-        string description = ConsoleHelpers.ReadOptional("Description (optional): ");
-        decimal price = ConsoleHelpers.ReadDecimal("Price (required): ");
-        int quantity = ConsoleHelpers.ReadInt("Quantity (required): ");
+        string code = _inputValidator.ReadRequired("Product Code (required): ");
+        string name = _inputValidator.ReadRequired("Name (required): ");
+        string description = _inputValidator.ReadOptional("Description (optional): ");
+        decimal price = _inputValidator.ReadDecimal("Price (required): ");
+        int quantity = _inputValidator.ReadInt("Quantity (required): ");
 
         var product = new Product(code, name, description, price, quantity);
         return product;

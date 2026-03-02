@@ -30,6 +30,8 @@ public class ProductService : IProductService
         Console.WriteLine("3. Display Products on Console");
         Console.WriteLine("4. Write products to JSON file");
         Console.WriteLine("5. Exit");
+        Console.WriteLine("Choose option:");
+        Console.WriteLine("--------------------");
     }
 
     public void Run()
@@ -39,7 +41,7 @@ public class ProductService : IProductService
         while (true)
         {
             DisplayMenu();
-            string choice = ConsoleHelpers.ReadOptional("Choose option: ").Trim();
+            string choice = Console.ReadLine() ?? string.Empty;
 
             switch (choice)
             {
