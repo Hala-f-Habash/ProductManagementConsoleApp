@@ -2,9 +2,10 @@ namespace ProductManagement.Validation.Interfaces
 {
     public interface IInputValidator
     {
-        public abstract bool TryReadRequired(string prompt, out string input);
-        public abstract bool TryReadDecimal(string prompt, out decimal value);
-        public abstract bool TryReadInt(string prompt, out int value);
+        public abstract string ReadRequired(string prompt);
+        public abstract string ReadOptional(string prompt);
+        public abstract decimal ReadDecimal(string prompt);
+        public abstract int ReadInt(string prompt);
     }
 }
 
