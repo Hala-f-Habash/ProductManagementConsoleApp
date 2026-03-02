@@ -12,7 +12,7 @@ public static class ProductWriterFactory
         return type switch
         {
             "console" => new ConsoleProductWriter(repository),
-            // "json" => new JsonProductWriter(repository),
+            "json" => new JsonProductWriter(repository),
             _ => throw new ArgumentException($"Unknown writer type: {type}")
         };
     }

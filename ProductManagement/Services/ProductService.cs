@@ -28,7 +28,7 @@ public class ProductService : IProductService
         Console.WriteLine("1. Add Product (Manual)");
         Console.WriteLine("2. Add Product (CSV Import)");
         Console.WriteLine("3. Display Products on Console");
-        Console.WriteLine("4. wrtie products to JSON file (comming soon)");
+        Console.WriteLine("4. Write products to JSON file");
         Console.WriteLine("5. Exit");
     }
 
