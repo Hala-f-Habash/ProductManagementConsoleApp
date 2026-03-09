@@ -1,17 +1,21 @@
-namespace ProductManagement;
+using ProductManagement.Models;
+using ProductManagement.Repositories.Interfaces;
+using ProductManagement.Validation.Interfaces;
 
-public class ProductValidator
+namespace ProductManagement.Validation;
+
+public class ProductValidator : IProductValidator
 {
-    private readonly IProductStore _store;
+    private IProductRepository _repository;
 
-    public ProductValidator(IProductStore store)
+    public ProductValidator(IProductRepository repository)
     {
-        _store = store;
+        _repository = repository;
     }
 
     // --- Individual validation methods ---
 
-    public bool ValidateProductCode(string? productCode, out string error)
+    private bool ValidateProductCode(string? productCode, out string error)
     {
         error = string.Empty;
 
@@ -21,7 +25,7 @@ public class ProductValidator
             return false;
         }
 
-        if (_store.Exists(productCode))
+        if (_repository.Exists(productCode))
         {
             error = $"Product code '{productCode}' already exists.";
             return false;
@@ -30,7 +34,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateName(string? name, out string error)
+    private bool ValidateName(string? name, out string error)
     {
         error = string.Empty;
 
@@ -43,7 +47,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidatePrice(decimal price, out string error)
+    private bool ValidatePrice(decimal price, out string error)
     {
         error = string.Empty;
 
@@ -56,7 +60,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateQuantity(int quantity, out string error)
+    private bool ValidateQuantity(int quantity, out string error)
     {
         error = string.Empty;
 
@@ -69,7 +73,7 @@ public class ProductValidator
         return true;
     }
 
-    public static bool ValidateDescription(string? description, out string error)
+    private bool ValidateDescription(string? description, out string error)
     {
         error = string.Empty;
 
@@ -84,9 +88,9 @@ public class ProductValidator
 
     // --- Aggregate method that runs all validations ---
 
-    public List<string> ValidateAll(Product product)
+    private bool TryValidateAll(Product product, out List<string> errors)
     {
-        var errors = new List<string>();
+        errors = new List<string>();
 
         if (!ValidateProductCode(product.ProductCode, out var codeError))
             errors.Add(codeError);
@@ -103,6 +107,21 @@ public class ProductValidator
         if (!ValidateDescription(product.Description, out var descError))
             errors.Add(descError);
 
-        return errors;
+        return errors.Count == 0;
     }
+
+    public bool TryValidateAllAndPrintErrors(Product product, string leadingMsg)
+    {
+        bool isValid = TryValidateAll(product, out var errors);
+
+        if (!isValid)
+        {
+            Console.WriteLine(leadingMsg);
+            foreach (var error in errors!)
+                Console.WriteLine($"  - {error}");
+            Console.WriteLine("-----------------------------------");
+        }
+        return isValid;
+    }
+
 }
