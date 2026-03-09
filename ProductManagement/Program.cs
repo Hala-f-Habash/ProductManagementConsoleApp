@@ -1,29 +1,35 @@
-﻿using ProductManagement.Repositories;
-using ProductManagement.Repositories.Interfaces;
-using ProductManagement.Services;
-using ProductManagement.Services.Interfaces;
-using ProductManagement.Validation;
-using ProductManagement.Validation.Interfaces;
-using ProductManagement.Writers;
-using ProductManagement.Writers.Interfaces;
-using ProductManagement.Models;
-using ProductManagement.Readers.Interfaces;
-using ProductManagement.Factories;
-using ProductManagement.Readers;
-using ProductManagement.Helpers.Interfaces;
-using ProductManagement.Helpers;
+﻿using ProductManagement;
 
+IProductStore store = new ProductStore(new List<Product>());
+var ui = new ProductUI(store);
 
-namespace ProductManagement;
+IProductInputStrategy manualStrategy = new ManualEntryStrategy(store);
+IProductInputStrategy csvStrategy = new CsvImportStrategy(store);
 
-class Program
+while (true)
 {
-    static void Main(string[] args)
+    ProductUI.DisplayMenu();
+    string choice = ConsoleHelpers.ReadOptional("Choose option: ").Trim();
+
+    switch (choice)
     {
-        IProductRepository repository = new ProductRepository(new List<Product>(), new HashSet<string>());
-        IProductValidator validator = new ProductValidator(repository);
-        IInputHelper consoleInputHelper = new ConsoleInputHelper();
-        IProductService service = new ProductService(repository, validator, consoleInputHelper);
-        service.Run();
+        case "1":
+            manualStrategy.ImportProducts();
+            break;
+
+        case "2":
+            csvStrategy.ImportProducts();
+            break;
+
+        case "3":
+            ui.DisplayProducts();
+            break;
+
+        case "4":
+            return;
+
+        default:
+            Console.WriteLine("Invalid choice. Please enter 1, 2, 3, or 4.");
+            break;
     }
 }

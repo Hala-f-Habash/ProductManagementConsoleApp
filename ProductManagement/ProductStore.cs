@@ -1,21 +1,21 @@
-using ProductManagement.Models;
-using ProductManagement.Repositories.Interfaces;
+namespace ProductManagement;
 
-namespace ProductManagement.Repositories;
+public interface IProductStore
+{
+    void Add(Product product);
+    List<Product> GetAll();
+    bool Exists(string productCode);
+}
 
-
-public class ProductRepository : IProductRepository
+public class ProductStore : IProductStore
 {
     private readonly List<Product> _products;
-    private readonly HashSet<string> _productCodes;
 
     private int _nextId = 1;
 
-    public ProductRepository(List<Product> products, HashSet<string> productCodes)
+    public ProductStore(List<Product> products)
     {
         _products = products ?? new List<Product>();
-        _productCodes = productCodes ?? new HashSet<string>();
-
         // Initialize nextId based on existing products
         if (_products.Count > 0)
         {
@@ -25,9 +25,9 @@ public class ProductRepository : IProductRepository
 
     public void Add(Product product)
     {
+        ArgumentNullException.ThrowIfNull(product);
         product.ProductId = _nextId++;
         _products.Add(product);
-        _productCodes.Add(product.ProductCode);
     }
 
     public List<Product> GetAll() => _products;
@@ -37,6 +37,6 @@ public class ProductRepository : IProductRepository
         if (string.IsNullOrWhiteSpace(productCode))
             return false;
 
-        return _productCodes.Contains(productCode);
+        return _products.Any(p => string.Equals(p.ProductCode, productCode, StringComparison.OrdinalIgnoreCase));
     }
 }

@@ -1,20 +1,17 @@
-using ProductManagement.Repositories.Interfaces;
-using ProductManagement.Writers.Interfaces;
+namespace ProductManagement;
 
-namespace ProductManagement.Writers;
-
-public class ConsoleProductWriter : IProductWriter
+public class ProductUI
 {
-    private readonly IProductRepository _repository;
+    private readonly IProductStore _store;
 
-    public ConsoleProductWriter(IProductRepository repository)
+    public ProductUI(IProductStore store)
     {
-        _repository = repository;
+        _store = store;
     }
 
-    public void WriteProducts()
+    public void DisplayProducts()
     {
-        var products = _repository.GetAll();
+        var products = _store.GetAll();
         if (products.Count == 0)
         {
             Console.WriteLine("No products available.");
@@ -62,4 +59,13 @@ public class ConsoleProductWriter : IProductWriter
         }
     }
 
+    public static void DisplayMenu()
+    {
+        Console.WriteLine("--------------------");
+        Console.WriteLine("Welcome to the Product Management System!");
+        Console.WriteLine("1. Add Product (Manual)");
+        Console.WriteLine("2. Add Product (CSV Import)");
+        Console.WriteLine("3. Display Products");
+        Console.WriteLine("4. Exit");
+    }
 }
