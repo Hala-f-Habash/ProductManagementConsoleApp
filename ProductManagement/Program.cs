@@ -20,7 +20,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        IProductRepository repository = new ProductRepository(new List<Product>());
+        IProductRepository repository = new ProductRepository(new List<Product>(), new HashSet<string>());
         IProductValidator validator = new ProductValidator(repository);
         IInputHelper consoleInputHelper = new ConsoleInputHelper();
         IProductService service = new ProductService(repository, validator, consoleInputHelper);
