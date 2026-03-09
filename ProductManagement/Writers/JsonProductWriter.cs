@@ -12,10 +12,12 @@ namespace ProductManagement.Writers;
 public class JsonProductWriter : IProductWriter
 {
     private readonly IProductRepository _repository;
+    private readonly IInputHelper _consoleInputHelper;
 
-    public JsonProductWriter(IProductRepository repository)
+    public JsonProductWriter(IProductRepository repository, IInputHelper consoleInputHelper)
     {
         _repository = repository;
+        _consoleInputHelper = consoleInputHelper;
     }
 
     public void WriteProducts()
@@ -32,8 +34,7 @@ public class JsonProductWriter : IProductWriter
             .Select(ProductJsonDto.FromProduct)
             .ToList();
 
-        IInputHelper consoleInputHelper = new ConsoleInputHelper();
-        string filePath = consoleInputHelper.ReadRequired("Enter path to JSON output file: ");
+        string filePath = _consoleInputHelper.ReadRequired("Enter path to JSON output file: ");
 
 
         try

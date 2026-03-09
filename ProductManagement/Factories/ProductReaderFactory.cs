@@ -10,12 +10,12 @@ namespace ProductManagement.Factories;
 
 public static class ProductReaderFactory
 {
-    public static IProductReader CreateReader(string type, IProductRepository repository, IProductValidator validator, IInputHelper? consoleInputHelper = null)
+    public static IProductReader CreateReader(string type, IProductRepository repository, IProductValidator validator, IInputHelper consoleInputHelper)
     {
         return type switch
         {
-            "console" => new ConsoleProductReader(repository, validator, consoleInputHelper ?? new ConsoleInputHelper()),
-            "csv" => new CsvProductReader(repository, validator),
+            "console" => new ConsoleProductReader(repository, validator, consoleInputHelper),
+            "csv" => new CsvProductReader(repository, validator, consoleInputHelper),
             _ => throw new ArgumentException($"Unknown reader type: {type}")
         };
     }

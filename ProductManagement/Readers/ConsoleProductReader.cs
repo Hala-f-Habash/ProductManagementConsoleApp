@@ -11,13 +11,13 @@ public class ConsoleProductReader : IProductReader
 {
     private readonly IProductRepository _repository;
     private readonly IProductValidator _validator;
-    private readonly IInputHelper _inputValidator;
+    private readonly IInputHelper _consoleInputHelper;
 
-    public ConsoleProductReader(IProductRepository repository, IProductValidator validator, IInputHelper inputValidator)
+    public ConsoleProductReader(IProductRepository repository, IProductValidator validator, IInputHelper consoleInputHelper)
     {
         _repository = repository;
         _validator = validator;
-        _inputValidator = inputValidator;
+        _consoleInputHelper = consoleInputHelper;
     }
 
     public void ImportProducts()
@@ -36,11 +36,11 @@ public class ConsoleProductReader : IProductReader
 
     private Product ReadProduct()
     {
-        string code = _inputValidator.ReadRequired("Product Code (required): ");
-        string name = _inputValidator.ReadRequired("Name (required): ");
-        string description = _inputValidator.ReadOptional("Description (optional): ");
-        decimal price = _inputValidator.ReadDecimal("Price (required): ");
-        int quantity = _inputValidator.ReadInt("Quantity (required): ");
+        string code = _consoleInputHelper.ReadRequired("Product Code (required): ");
+        string name = _consoleInputHelper.ReadRequired("Name (required): ");
+        string description = _consoleInputHelper.ReadOptional("Description (optional): ");
+        decimal price = _consoleInputHelper.ReadDecimal("Price (required): ");
+        int quantity = _consoleInputHelper.ReadInt("Quantity (required): ");
 
         var product = new Product(code, name, description, price, quantity);
         return product;

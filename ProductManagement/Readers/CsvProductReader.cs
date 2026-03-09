@@ -24,11 +24,13 @@ public class CsvProductReader : IProductReader
 {
     private readonly IProductRepository _repository;
     private readonly IProductValidator _validator;
+    private readonly IInputHelper _consoleInputHelper;
 
-    public CsvProductReader(IProductRepository repository, IProductValidator validator)
+    public CsvProductReader(IProductRepository repository, IProductValidator validator, IInputHelper consoleInputHelper)
     {
         _repository = repository;
         _validator = validator;
+        _consoleInputHelper = consoleInputHelper;
     }
 
     public void ImportProducts()
@@ -81,8 +83,7 @@ public class CsvProductReader : IProductReader
 
     private string[]? TryReadFileLines(out string? errorMessage)
     {
-        IInputHelper consoleInputHelper = new ConsoleInputHelper();
-        string filePath = consoleInputHelper.ReadRequired("Enter the path to the CSV file: ");
+        string filePath = _consoleInputHelper.ReadRequired("Enter the path to the CSV file: ");
 
         if (!File.Exists(filePath))
         {

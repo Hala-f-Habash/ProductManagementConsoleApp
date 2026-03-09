@@ -13,13 +13,13 @@ public class ProductService : IProductService
 {
     private IProductRepository _repository;
     private IProductValidator _validator;
-    private IInputHelper _inputValidator;
+    private IInputHelper _consoleInputHelper;
     public ProductService(
-        IProductRepository repository, IProductValidator validator, IInputHelper inputValidator)
+        IProductRepository repository, IProductValidator validator, IInputHelper consoleInputHelper)
     {
         _repository = repository;
         _validator = validator;
-        _inputValidator = inputValidator;
+        _consoleInputHelper = consoleInputHelper;
     }
 
 
@@ -49,11 +49,11 @@ public class ProductService : IProductService
             switch (choice)
             {
                 case "1":
-                    reader = ProductReaderFactory.CreateReader("console", _repository, _validator, _inputValidator);
+                    reader = ProductReaderFactory.CreateReader("console", _repository, _validator, _consoleInputHelper);
                     reader.ImportProducts();
                     break;
                 case "2":
-                    reader = ProductReaderFactory.CreateReader("csv", _repository, _validator);
+                    reader = ProductReaderFactory.CreateReader("csv", _repository, _validator, _consoleInputHelper);
                     reader.ImportProducts();
                     break;
                 case "3":
@@ -61,7 +61,7 @@ public class ProductService : IProductService
                     writer.WriteProducts();
                     break;
                 case "4":
-                    writer = ProductWriterFactory.CreateWriter("json", _repository);
+                    writer = ProductWriterFactory.CreateWriter("json", _repository, _consoleInputHelper);
                     writer.WriteProducts();
                     break;
                 case "5":
