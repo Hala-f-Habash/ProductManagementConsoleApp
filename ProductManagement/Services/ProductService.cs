@@ -4,6 +4,8 @@ using ProductManagement.Validation.Interfaces;
 using ProductManagement.Factories;
 using ProductManagement.Services.Interfaces;
 using ProductManagement.Readers.Interfaces;
+using ProductManagement.Helpers.Interfaces;
+using ProductManagement.Helpers;
 
 namespace ProductManagement.Services;
 
@@ -11,9 +13,9 @@ public class ProductService : IProductService
 {
     private IProductRepository _repository;
     private IProductValidator _validator;
-    private IInputValidator _inputValidator;
+    private IInputHelper _inputValidator;
     public ProductService(
-        IProductRepository repository, IProductValidator validator, IInputValidator inputValidator)
+        IProductRepository repository, IProductValidator validator, IInputHelper inputValidator)
     {
         _repository = repository;
         _validator = validator;

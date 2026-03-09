@@ -1,8 +1,8 @@
-using ProductManagement.Validation.Interfaces;
+using ProductManagement.Helpers.Interfaces;
 
-namespace ProductManagement.Validation
+namespace ProductManagement.Helpers
 {
-    public class ConsoleInputValidator : IInputValidator
+    public class ConsoleInputHelper : IInputHelper
     {
         public string ReadRequired(string prompt)
         {

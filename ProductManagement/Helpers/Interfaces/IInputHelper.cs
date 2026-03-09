@@ -1,6 +1,6 @@
-namespace ProductManagement.Validation.Interfaces
+namespace ProductManagement.Helpers.Interfaces
 {
-    public interface IInputValidator
+    public interface IInputHelper
     {
         public abstract string ReadRequired(string prompt);
         public abstract string ReadOptional(string prompt);

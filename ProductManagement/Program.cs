@@ -10,6 +10,8 @@ using ProductManagement.Models;
 using ProductManagement.Readers.Interfaces;
 using ProductManagement.Factories;
 using ProductManagement.Readers;
+using ProductManagement.Helpers.Interfaces;
+using ProductManagement.Helpers;
 
 
 namespace ProductManagement;
@@ -20,8 +22,8 @@ class Program
     {
         IProductRepository repository = new ProductRepository(new List<Product>());
         IProductValidator validator = new ProductValidator(repository);
-        IInputValidator consoleInputValidator = new ConsoleInputValidator();
-        IProductService service = new ProductService(repository, validator, consoleInputValidator);
+        IInputHelper consoleInputHelper = new ConsoleInputHelper();
+        IProductService service = new ProductService(repository, validator, consoleInputHelper);
         service.Run();
     }
 }

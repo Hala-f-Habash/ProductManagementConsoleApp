@@ -4,14 +4,16 @@ using ProductManagement.Models;
 using ProductManagement.Repositories.Interfaces;
 using ProductManagement.Validation.Interfaces;
 using ProductManagement.Readers.Interfaces;
+using ProductManagement.Helpers.Interfaces;
+using ProductManagement.Helpers;
 
 public class ConsoleProductReader : IProductReader
 {
     private readonly IProductRepository _repository;
     private readonly IProductValidator _validator;
-    private readonly IInputValidator _inputValidator;
+    private readonly IInputHelper _inputValidator;
 
-    public ConsoleProductReader(IProductRepository repository, IProductValidator validator, IInputValidator inputValidator)
+    public ConsoleProductReader(IProductRepository repository, IProductValidator validator, IInputHelper inputValidator)
     {
         _repository = repository;
         _validator = validator;

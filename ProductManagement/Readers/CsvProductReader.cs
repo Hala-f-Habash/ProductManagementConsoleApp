@@ -2,8 +2,9 @@ using ProductManagement.Models;
 using ProductManagement.Repositories.Interfaces;
 using ProductManagement.Validation.Interfaces;
 using ProductManagement.Readers.Interfaces;
-using ProductManagement.Helpers;
 using ProductManagement.Validation;
+using ProductManagement.Helpers.Interfaces;
+using ProductManagement.Helpers;
 
 namespace ProductManagement.Readers;
 
@@ -80,8 +81,8 @@ public class CsvProductReader : IProductReader
 
     private string[]? TryReadFileLines(out string? errorMessage)
     {
-        ConsoleHelpers consoleHelpers = new ConsoleHelpers(new ConsoleInputValidator());
-        string filePath = consoleHelpers.ReadUntilValid("Enter the path to the CSV file: ");
+        IInputHelper consoleInputHelper = new ConsoleInputHelper();
+        string filePath = consoleInputHelper.ReadRequired("Enter the path to the CSV file: ");
 
         if (!File.Exists(filePath))
         {

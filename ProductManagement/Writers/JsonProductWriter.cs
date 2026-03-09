@@ -3,8 +3,9 @@ using ProductManagement.Repositories.Interfaces;
 using ProductManagement.Writers.Interfaces;
 using ProductManagement.DTOs;
 using ProductManagement.Serialization;
-using ProductManagement.Helpers;
 using ProductManagement.Validation;
+using ProductManagement.Helpers.Interfaces;
+using ProductManagement.Helpers;
 
 namespace ProductManagement.Writers;
 
@@ -31,8 +32,8 @@ public class JsonProductWriter : IProductWriter
             .Select(ProductJsonDto.FromProduct)
             .ToList();
 
-        ConsoleHelpers consoleHelpers = new ConsoleHelpers(new ConsoleInputValidator());
-        string filePath = consoleHelpers.ReadUntilValid("Enter path to JSON output file: ");
+        IInputHelper consoleInputHelper = new ConsoleInputHelper();
+        string filePath = consoleInputHelper.ReadRequired("Enter path to JSON output file: ");
 
 
         try
