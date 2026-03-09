@@ -31,7 +31,8 @@ public class JsonProductWriter : IProductWriter
             .Select(ProductJsonDto.FromProduct)
             .ToList();
 
-        string filePath = ConsoleHelpers.ReadUntilValid("Enter path to JSON output file: ", new ConsoleInputValidator());
+        ConsoleHelpers consoleHelpers = new ConsoleHelpers(new ConsoleInputValidator());
+        string filePath = consoleHelpers.ReadUntilValid("Enter path to JSON output file: ");
 
 
         try

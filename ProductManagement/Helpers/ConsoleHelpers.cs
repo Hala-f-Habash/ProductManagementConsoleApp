@@ -2,11 +2,16 @@ using ProductManagement.Validation.Interfaces;
 using ProductManagement.Validation;
 namespace ProductManagement.Helpers;
 
-public static class ConsoleHelpers
+public class ConsoleHelpers
 {
-    public static string ReadUntilValid(string prompt, IInputValidator validator)
+    private IInputValidator validator;
+    public ConsoleHelpers(IInputValidator validator){
+        this.validator = validator;
+    }
+    
+    public string ReadUntilValid(string prompt)
     {
-        return validator.ReadRequired(prompt).Trim();
+        return this.validator.ReadRequired(prompt).Trim();
     }
 
 }

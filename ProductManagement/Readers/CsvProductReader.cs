@@ -80,7 +80,8 @@ public class CsvProductReader : IProductReader
 
     private string[]? TryReadFileLines(out string? errorMessage)
     {
-        string filePath = ConsoleHelpers.ReadUntilValid("Enter the path to the CSV file: ", new ConsoleInputValidator());
+        ConsoleHelpers consoleHelpers = new ConsoleHelpers(new ConsoleInputValidator());
+        string filePath = consoleHelpers.ReadUntilValid("Enter the path to the CSV file: ");
 
         if (!File.Exists(filePath))
         {
